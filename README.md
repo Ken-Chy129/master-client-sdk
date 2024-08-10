@@ -13,3 +13,5 @@ Master，顾名思义掌控者，用于管控运行时的配置信息与内存�
 3. 其他变量的实时控制，如黑白名单、应用切流百分比等，以实时控制程序的运行逻辑
 
 ## 应用架构
+
+<img src="https://github.com/Ken-Chy129/master/blob/master/static/%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84.jpg"></img>
