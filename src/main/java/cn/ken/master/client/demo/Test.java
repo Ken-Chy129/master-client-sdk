@@ -10,9 +10,10 @@ public class Test {
 
     public static void main(String[] args) {
         MasterManager manager = new MasterManager();
-        manager.setIp("xxx");
+        manager.setHost("xxx");
         manager.setPort(12949);
-        manager.register("demoApp", CommonBizVariables.class);
+        manager.setAppName("test");
+        manager.register(CommonBizVariables.class);
         manager.init();
     }
 }
