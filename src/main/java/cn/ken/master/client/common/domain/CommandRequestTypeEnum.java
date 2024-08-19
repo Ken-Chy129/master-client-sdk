@@ -8,8 +8,8 @@ public enum CommandRequestTypeEnum {
 
     VARIABLE_GET(1, ""),
     VARIABLE_PUT(2, ""),
-    VARIABLE_SCENE(3, ""),
-    VARIABLE_BATCH_GET(4, ""),
+    VARIABLE_BATCH_GET(3, ""),
+    VARIABLE_BATCH_PUT(3, ""),
     ;
 
     private final Integer code;
