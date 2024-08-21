@@ -16,10 +16,10 @@ public class RequestHandlerFactory {
     private final static Map<CommandRequestTypeEnum, RequestHandleStrategy> HANDLERS = new HashMap<>();
 
     static {
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_GET, new VariableGetRequestHandler());
+//        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_GET, new VariableGetRequestHandler());
         HANDLERS.put(CommandRequestTypeEnum.VARIABLE_PUT, new VariablePutRequestHandler());
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_BATCH_GET, new VariableGetRequestHandler());
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_BATCH_PUT, new VariableGetRequestHandler());
+        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_NAMESPACE_GET, new VariableGetRequestHandler());
+        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_ALL_GET, new VariableGetRequestHandler());
     }
 
     /**

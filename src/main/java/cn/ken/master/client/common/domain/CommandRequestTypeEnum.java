@@ -6,10 +6,10 @@ package cn.ken.master.client.common.domain;
  */
 public enum CommandRequestTypeEnum {
 
-    VARIABLE_GET(1, ""),
+//    VARIABLE_GET(1, ""),
     VARIABLE_PUT(2, ""),
-    VARIABLE_BATCH_GET(3, ""),
-    VARIABLE_BATCH_PUT(3, ""),
+    VARIABLE_NAMESPACE_GET(3, ""),
+    VARIABLE_ALL_GET(4, ""),
     ;
 
     private final Integer code;
