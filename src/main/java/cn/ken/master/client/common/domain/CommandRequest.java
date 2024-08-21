@@ -1,6 +1,7 @@
 package cn.ken.master.client.common.domain;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Ken-Chy129
@@ -17,7 +18,11 @@ public class CommandRequest {
     /**
      * 变量列表
      */
-    private List<Variable> variableList;
+    private Map<String, String> parameterMap;
+
+    public CommandRequest() {
+        parameterMap = new HashMap<>();
+    }
 
     public Integer getRequestType() {
         return requestType;
@@ -27,11 +32,15 @@ public class CommandRequest {
         this.requestType = requestType;
     }
 
-    public List<Variable> getVariableList() {
-        return variableList;
+    public Map<String, String> getParameterMap() {
+        return parameterMap;
     }
 
-    public void setVariableList(List<Variable> variableList) {
-        this.variableList = variableList;
+    public void setParameterMap(Map<String, String> parameterMap) {
+        this.parameterMap = parameterMap;
+    }
+
+    public void addParameter(String key, String value) {
+        parameterMap.put(key, value);
     }
 }

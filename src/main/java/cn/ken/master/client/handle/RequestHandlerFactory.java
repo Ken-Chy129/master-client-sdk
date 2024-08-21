@@ -18,8 +18,8 @@ public class RequestHandlerFactory {
     static {
         HANDLERS.put(CommandRequestTypeEnum.VARIABLE_GET, new VariableGetRequestHandler());
         HANDLERS.put(CommandRequestTypeEnum.VARIABLE_PUT, new VariablePutRequestHandler());
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_SCENE, new VariableGetRequestHandler());
         HANDLERS.put(CommandRequestTypeEnum.VARIABLE_BATCH_GET, new VariableGetRequestHandler());
+        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_BATCH_PUT, new VariableGetRequestHandler());
     }
 
     /**

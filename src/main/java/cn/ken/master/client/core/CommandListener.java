@@ -3,12 +3,13 @@ package cn.ken.master.client.core;
 import cn.ken.master.client.common.domain.CommandRequest;
 import cn.ken.master.client.handle.RequestHandleStrategy;
 import cn.ken.master.client.handle.RequestHandlerFactory;
-import cn.ken.master.client.task.CommandTask;
+import cn.ken.master.client.util.StringUtil;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * 命令监听处理
@@ -30,11 +31,11 @@ public class CommandListener extends Thread {
     @Override
     public void run() {
         try (
-                BufferedReader br = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-                PrintWriter pw = new PrintWriter(serverSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+                PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
         ) {
             while (true) {
-                String rawRequest = br.readLine();
+                String rawRequest = in.readLine();
                 // 消息解析
                 CommandRequest commandRequest = parseRequest(rawRequest);
                 RequestHandleStrategy requestHandler = RequestHandlerFactory.getRequestHandler(commandRequest.getRequestType());
@@ -45,9 +46,35 @@ public class CommandListener extends Thread {
         }
     }
 
+    /**
+     * 将服务端发送的请求进行解析
+     * @param rawRequest 格式为：/请求方法名?namespace=
+     * @return 解析后的请求对象
+     */
     private CommandRequest parseRequest(String rawRequest) {
         CommandRequest commandRequest = new CommandRequest();
-
+        if (StringUtil.isBlank(rawRequest)) {
+            return commandRequest;
+        }
+        String[] split = rawRequest.split("\\?");
+        if (split.length != 2) {
+            return commandRequest;
+        }
+        String requestType = split[0];
+        commandRequest.setRequestType(Integer.valueOf(requestType));
+        String parameters = split[1];
+        for (String parameter : parameters.split("&")) {
+            if (StringUtil.isBlank(parameter)) {
+                continue;
+            }
+            String[] pair = parameter.split("=");
+            if (pair.length != 2) {
+                continue;
+            }
+            String key = pair[0].strip();
+            String value = URLDecoder.decode(pair[1].strip(), StandardCharsets.UTF_8);
+            commandRequest.addParameter(key, value);
+        }
         return commandRequest;
     }
 }
