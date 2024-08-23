@@ -10,10 +10,9 @@ import java.util.Map;
 public class CommandRequest {
 
     /**
-     * 请求类型
-     * 1.查询变量值 2.修改变量值 3.批量查询变量 4.场景模板修改
+     * 请求名称
      */
-    private Integer requestType;
+    private String requestName;
 
     /**
      * 变量列表
@@ -24,12 +23,12 @@ public class CommandRequest {
         parameterMap = new HashMap<>();
     }
 
-    public Integer getRequestType() {
-        return requestType;
+    public String getRequestName() {
+        return requestName;
     }
 
-    public void setRequestType(Integer requestType) {
-        this.requestType = requestType;
+    public void setRequestName(String requestName) {
+        this.requestName = requestName;
     }
 
     public Map<String, String> getParameterMap() {

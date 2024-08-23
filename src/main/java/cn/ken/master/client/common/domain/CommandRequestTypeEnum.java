@@ -6,30 +6,23 @@ package cn.ken.master.client.common.domain;
  */
 public enum CommandRequestTypeEnum {
 
-//    VARIABLE_GET(1, ""),
-    VARIABLE_PUT(2, ""),
-    VARIABLE_NAMESPACE_GET(3, ""),
-    VARIABLE_ALL_GET(4, ""),
+    VARIABLE_GET("getByNamespace"),
+    VARIABLE_PUT("put"),
+    VARIABLE_ALL_GET("getAll"),
     ;
 
-    private final Integer code;
 
-    private final String desc;
+    private final String code;
 
-    CommandRequestTypeEnum(Integer code, String desc) {
+    CommandRequestTypeEnum(String code) {
         this.code = code;
-        this.desc = desc;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public static CommandRequestTypeEnum getFromCode(Integer code) {
+    public static CommandRequestTypeEnum getFromCode(String code) {
         for (CommandRequestTypeEnum value : CommandRequestTypeEnum.values()) {
             if (value.getCode().equals(code)) {
                 return value;

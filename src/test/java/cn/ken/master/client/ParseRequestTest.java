@@ -11,8 +11,6 @@ import cn.ken.master.client.util.MasterUtil;
 public class ParseRequestTest {
 
     public static void main(String[] args) {
-        CommandRequest commandRequest = MasterUtil.parseRequest("1?namespace=hello&name=fff&value=123");
-        System.out.println(commandRequest.getRequestType());
-        System.out.println(commandRequest.getParameterMap());
+
     }
 }

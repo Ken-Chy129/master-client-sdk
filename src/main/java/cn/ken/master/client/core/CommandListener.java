@@ -9,6 +9,8 @@ import java.io.*;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -38,7 +40,11 @@ public class CommandListener extends Thread {
                 String rawRequest = in.readLine();
                 // 消息解析
                 CommandRequest commandRequest = parseRequest(rawRequest);
-                RequestHandleStrategy requestHandler = RequestHandlerFactory.getRequestHandler(commandRequest.getRequestType());
+                RequestHandleStrategy requestHandler = RequestHandlerFactory.getRequestHandler(commandRequest.getRequestName());
+                if (Objects.isNull(requestHandler)) {
+                    out.println("请输入正确的请求方法");
+                    continue;
+                }
                 requestHandler.handleRequest(commandRequest);
             }
         } catch (IOException e) {
@@ -48,7 +54,7 @@ public class CommandListener extends Thread {
 
     /**
      * 将服务端发送的请求进行解析
-     * @param rawRequest 格式为：/请求方法名?namespace=
+     * @param rawRequest 格式为：/请求方法名?参数名=值&参数名=值
      * @return 解析后的请求对象
      */
     private CommandRequest parseRequest(String rawRequest) {
@@ -60,8 +66,9 @@ public class CommandListener extends Thread {
         if (split.length != 2) {
             return commandRequest;
         }
-        String requestType = split[0];
-        commandRequest.setRequestType(Integer.valueOf(requestType));
+        String[] requestNameSplit = split[0].split("/");
+        String requestName = requestNameSplit.length == 2 ? requestNameSplit[1] : requestNameSplit[0];
+        commandRequest.setRequestName(requestName.strip());
         String parameters = split[1];
         for (String parameter : parameters.split("&")) {
             if (StringUtil.isBlank(parameter)) {

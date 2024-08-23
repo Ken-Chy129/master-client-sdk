@@ -13,22 +13,20 @@ import java.util.Map;
  */
 public class RequestHandlerFactory {
 
-    private final static Map<CommandRequestTypeEnum, RequestHandleStrategy> HANDLERS = new HashMap<>();
+    private final static Map<String, RequestHandleStrategy> HANDLERS = new HashMap<>();
 
     static {
-//        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_GET, new VariableGetRequestHandler());
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_PUT, new VariablePutRequestHandler());
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_NAMESPACE_GET, new VariableGetRequestHandler());
-        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_ALL_GET, new VariableGetRequestHandler());
+        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_GET.getCode(), new VariableGetRequestHandler());
+        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_PUT.getCode(), new VariablePutRequestHandler());
+        HANDLERS.put(CommandRequestTypeEnum.VARIABLE_ALL_GET.getCode(), new VariableGetRequestHandler());
     }
 
     /**
      * 根据请求类型获取对应的请求处理器
-     * @param requestType 请求类型
+     * @param requestName 请求方法名
      * @return 请求处理器
      */
-    public static RequestHandleStrategy getRequestHandler(Integer requestType) {
-        CommandRequestTypeEnum type = CommandRequestTypeEnum.getFromCode(requestType);
-        return HANDLERS.get(type);
+    public static RequestHandleStrategy getRequestHandler(String requestName) {
+        return HANDLERS.get(requestName);
     }
 }
