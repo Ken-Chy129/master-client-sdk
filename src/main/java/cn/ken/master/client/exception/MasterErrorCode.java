@@ -31,6 +31,11 @@ public enum MasterErrorCode {
      */
     REGISTERED_CLAZZ_INVALID(3, "要注册的变量管理类未被@MasterConfig注解标识"),
 
+    /**
+     * 受管控变量不可访问
+     */
+    CONTROLLABLE_VARIABLE_INACCESSIBLE(10001, "请将受管控变量的访问修饰符设置为public"),
+
 
     ;
 
