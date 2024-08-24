@@ -1,6 +1,6 @@
 package cn.ken.master.client.util;
 
-import cn.ken.master.client.annotations.MasterConfig;
+import cn.ken.master.client.annotations.Master;
 
 /**
  * 注解工具类
@@ -16,7 +16,7 @@ public class AnnotationUtil {
         if (clazz == null) {
             return Boolean.FALSE;
         }
-        MasterConfig declaredAnnotation = clazz.getDeclaredAnnotation(MasterConfig.class);
+        Master declaredAnnotation = clazz.getDeclaredAnnotation(Master.class);
         if (declaredAnnotation == null) {
             return Boolean.FALSE;
         }

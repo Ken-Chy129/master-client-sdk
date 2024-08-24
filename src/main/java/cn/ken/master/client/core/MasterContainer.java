@@ -1,9 +1,15 @@
 package cn.ken.master.client.core;
 
-import cn.ken.master.client.annotations.MasterConfig;
+import cn.ken.master.client.annotations.Master;
+import cn.ken.master.client.exception.MasterErrorCode;
+import cn.ken.master.client.exception.MasterException;
+import cn.ken.master.client.util.MasterUtil;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Ken-Chy129
@@ -12,41 +18,65 @@ import java.util.Map;
 public class MasterContainer {
 
     /**
-     * key：namespace，value：clazz
-     */
-    private static Map<String, Class<?>> variableMasterMap;
-
-    /**
      * key: namespace, value: {key: name, value:Field}，todo：缓存减少反射开销
      */
-    private static Map<String, Map<String, Field>> variableFieldMap;
+    private static final Map<String, Map<String, Field>> NASTER_FIELD_MAP = new HashMap<>();
 
     /**
      * 添加变量管控类到上下文
-     * @param variableMasterClazz
+     * @param masterClazz 变量管控类
      */
-    public static void addVariableMaster(Class<?> variableMasterClazz) {
-        MasterConfig annotation = variableMasterClazz.getDeclaredAnnotation(MasterConfig.class);
+    public static void addVariableMaster(Class<?> masterClazz) {
+        Master annotation = masterClazz.getDeclaredAnnotation(Master.class);
         assert annotation != null;
         String namespace = annotation.namespace();
-        if (namespace == null) {
-            namespace = variableMasterClazz.getName();
+        if (Objects.isNull(namespace)) {
+            namespace = masterClazz.getName();
         }
-        variableMasterMap.put(namespace, variableMasterClazz);
+        Map<String, Field> fieldMap = new HashMap<>();
+        Field[] declaredFields = masterClazz.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            if (MasterUtil.isMasterVariable(declaredField)) {
+                fieldMap.put(declaredField.getName(), declaredField);
+            }
+        }
+        NASTER_FIELD_MAP.put(namespace, fieldMap);
+    }
+
+    public static Map<String, Map<String, Field>> getNasterFieldMap() {
+        return NASTER_FIELD_MAP;
     }
 
     /**
-     * 注册管控变量
+     * 查询指定变量管控类所有可管控字段
      */
-    private static void registerVariables() {
-
+    public static Map<String, Field> getMasterField(String namespace) {
+        return NASTER_FIELD_MAP.get(namespace);
     }
 
     /**
-     * 查询变量值
+     * 查询指定变量管控类指定字段
      */
-    public static String getVariableValue(String namespace, String name) {
-        return "";
+    public static Field getMasterField(String namespace, String name) {
+        return Optional.ofNullable(NASTER_FIELD_MAP.get(namespace))
+                .map(fieldMap -> fieldMap.get(name))
+                .orElse(null);
+    }
+
+    /**
+     * 查询指定变量管控类指定字段的值
+     */
+    public static Object getMasterFieldValue(String namespace, String name) {
+        return Optional.ofNullable(NASTER_FIELD_MAP.get(namespace))
+                .map(fieldMap -> fieldMap.get(name))
+                .map(filed -> {
+                    try {
+                        return filed.get(null);
+                    } catch (IllegalAccessException e) {
+                        throw new MasterException(e.getMessage());
+                    }
+                })
+                .orElseThrow(null);
     }
 
     /**

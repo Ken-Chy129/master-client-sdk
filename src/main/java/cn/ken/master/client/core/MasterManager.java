@@ -25,6 +25,15 @@ public class MasterManager {
     // 客户端应用名
     private String appName;
 
+    public MasterManager() {
+    }
+
+    public MasterManager(String host, Integer port, String appName) {
+        this.host = host;
+        this.port = port;
+        this.appName = appName;
+    }
+
     public String getHost() {
         return host;
     }
@@ -49,13 +58,22 @@ public class MasterManager {
         this.appName = appName;
     }
 
+    @Override
+    public String toString() {
+        return "MasterManager{" +
+                "host='" + host + '\'' +
+                ", port=" + port +
+                ", appName='" + appName + '\'' +
+                '}';
+    }
+
     /**
      * 向服务端注册变量管控类
      * @param clazz 变量管控类
      */
     public void register(Class<?> clazz) {
         // 1.校验clazz
-        if (!MasterUtil.isVariableMasterClazzValid(clazz)) {
+        if (!MasterUtil.isMasterClazz(clazz)) {
             throw new MasterException(MasterErrorCode.REGISTERED_CLAZZ_INVALID);
         }
         // 3.保存变量控制类
