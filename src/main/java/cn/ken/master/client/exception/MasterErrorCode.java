@@ -34,7 +34,7 @@ public enum MasterErrorCode {
     /**
      * 受管控变量不可访问
      */
-    CONTROLLABLE_VARIABLE_INACCESSIBLE(10001, "请将受管控变量的访问修饰符设置为public"),
+    CONTROLLABLE_VARIABLE_INACCESSIBLE(10001, "请将受管控变量 {%s} 的访问修饰符设置为public"),
 
 
     ;
