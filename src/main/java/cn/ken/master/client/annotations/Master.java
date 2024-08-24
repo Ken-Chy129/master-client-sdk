@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MasterConfig {
+public @interface Master {
 
     /**
      * 指定用户命名空间，唯一标识一个业务类型，不可重复
