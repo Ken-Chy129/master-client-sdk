@@ -1,6 +1,7 @@
 package cn.ken.master.client.core;
 
 import cn.ken.master.client.common.domain.CommandRequest;
+import cn.ken.master.client.common.domain.Result;
 import cn.ken.master.client.handle.RequestHandleStrategy;
 import cn.ken.master.client.handle.RequestHandlerFactory;
 import cn.ken.master.client.util.StringUtil;
@@ -34,7 +35,7 @@ public class CommandListener extends Thread {
     public void run() {
         try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
+                ObjectOutputStream out = new ObjectOutputStream(serverSocket.getOutputStream());
         ) {
             while (true) {
                 String rawRequest = in.readLine();
@@ -42,7 +43,7 @@ public class CommandListener extends Thread {
                 CommandRequest commandRequest = parseRequest(rawRequest);
                 RequestHandleStrategy requestHandler = RequestHandlerFactory.getRequestHandler(commandRequest.getRequestName());
                 if (Objects.isNull(requestHandler)) {
-                    out.println("请输入正确的请求方法");
+                    out.writeObject(Result.error("请输入正确的方法名"));
                     continue;
                 }
                 requestHandler.handleRequest(commandRequest);
