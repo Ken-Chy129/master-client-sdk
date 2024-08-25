@@ -2,7 +2,6 @@ package cn.ken.master.client.core;
 
 import cn.ken.master.client.annotations.ControllableVariable;
 import cn.ken.master.client.annotations.Master;
-import cn.ken.master.client.exception.MasterErrorCode;
 import cn.ken.master.client.exception.MasterException;
 import cn.ken.master.client.util.MasterUtil;
 
@@ -26,7 +25,7 @@ public class MasterContainer {
     /**
      * key
      */
-    private static final Map<String, Map<String, ControllableVariable>> MASTER_VARIABLE_MAP = new HashMap<>();
+    private static final Map<String, Map<String, ControllableVariable>> CONTROLLABLE_VARIABLE_MAP = new HashMap<>();
 
     /**
      * key: namespace, value: {key: name, value:Field}，todo：缓存减少反射开销
@@ -54,7 +53,7 @@ public class MasterContainer {
                 variableMap.put(declaredField.getName(), declaredField.getDeclaredAnnotation(ControllableVariable.class));
             }
         }
-        MASTER_VARIABLE_MAP.put(namespace, variableMap);
+        CONTROLLABLE_VARIABLE_MAP.put(namespace, variableMap);
         NASTER_FIELD_MAP.put(namespace, fieldMap);
     }
 
@@ -62,8 +61,12 @@ public class MasterContainer {
         return NAMESPACE_MASTER_MAP;
     }
 
-    public static Map<String, Map<String, ControllableVariable>> getMasterVariableMap() {
-        return MASTER_VARIABLE_MAP;
+    public static Map<String, Map<String, ControllableVariable>> getAllControllableVariableMap() {
+        return CONTROLLABLE_VARIABLE_MAP;
+    }
+
+    public static Map<String, ControllableVariable> getControllableVariableMapByNamespace(String namespace) {
+        return CONTROLLABLE_VARIABLE_MAP.get(namespace);
     }
 
     public static Map<String, Map<String, Field>> getNasterFieldMap() {
@@ -102,10 +105,4 @@ public class MasterContainer {
                 .orElseThrow(null);
     }
 
-    /**
-     * 修改变量值
-     */
-    public static void putVariableValue(String namespace, String name, String value) {
-
-    }
 }

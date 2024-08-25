@@ -18,12 +18,12 @@ public class VariableGetAllRequestHandler implements RequestHandleStrategy {
 
     @Override
     public Result<List<Variable>> handleRequest(CommandRequest request) {
-        Map<String, Map<String, ControllableVariable>> masterVariableMap = MasterContainer.getMasterVariableMap();
+        Map<String, Map<String, ControllableVariable>> masterVariableMap = MasterContainer.getAllControllableVariableMap();
         List<Variable> variableList = new ArrayList<>();
-        for (Map.Entry<String, Map<String, ControllableVariable>> entry : masterVariableMap.entrySet()) {
+        for (var entry : masterVariableMap.entrySet()) {
             String namespace = entry.getKey();
             Map<String, ControllableVariable> variableMap = entry.getValue();
-            for (Map.Entry<String, ControllableVariable> variableEntry : variableMap.entrySet()) {
+            for (var variableEntry : variableMap.entrySet()) {
                 String variableName = variableEntry.getKey();
                 ControllableVariable controllableVariable = variableEntry.getValue();
                 String description = controllableVariable.desc();
