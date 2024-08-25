@@ -6,9 +6,9 @@ package cn.ken.master.client.common.domain;
  */
 public enum CommandRequestTypeEnum {
 
+    VARIABLE_ALL_GET("getAll"),
     VARIABLE_GET("getByNamespace"),
     VARIABLE_PUT("put"),
-    VARIABLE_ALL_GET("getAll"),
     ;
 
 

@@ -46,10 +46,10 @@ public class CommandListener extends Thread {
                     out.writeObject(Result.error("请输入正确的方法名"));
                     continue;
                 }
-                requestHandler.handleRequest(commandRequest);
+                out.writeObject(requestHandler.handleRequest(commandRequest));
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
         }
     }
 

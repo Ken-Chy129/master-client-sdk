@@ -1,6 +1,7 @@
 package cn.ken.master.client.handle;
 
 import cn.ken.master.client.common.domain.CommandRequest;
+import cn.ken.master.client.common.domain.Result;
 
 /**
  * 请求处理策略类
@@ -10,5 +11,5 @@ import cn.ken.master.client.common.domain.CommandRequest;
  */
 public interface RequestHandleStrategy {
 
-    void handleRequest(CommandRequest request);
+    Result<?> handleRequest(CommandRequest request);
 }
