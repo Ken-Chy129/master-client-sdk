@@ -1,6 +1,6 @@
 package cn.ken.master.client.task;
 
-import cn.ken.master.client.common.domain.CommandRequest;
+import cn.ken.master.core.model.CommandRequest;
 
 import java.net.Socket;
 

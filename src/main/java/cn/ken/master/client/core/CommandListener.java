@@ -1,16 +1,15 @@
 package cn.ken.master.client.core;
 
-import cn.ken.master.client.common.domain.CommandRequest;
-import cn.ken.master.client.common.domain.Result;
 import cn.ken.master.client.handle.RequestHandleStrategy;
 import cn.ken.master.client.handle.RequestHandlerFactory;
-import cn.ken.master.client.util.StringUtil;
+import cn.ken.master.core.util.StringUtil;
+import cn.ken.master.core.model.CommandRequest;
+import cn.ken.master.core.model.Result;
 
 import java.io.*;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 

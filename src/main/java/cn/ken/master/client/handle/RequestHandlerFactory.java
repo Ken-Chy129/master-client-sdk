@@ -1,6 +1,6 @@
 package cn.ken.master.client.handle;
 
-import cn.ken.master.client.common.domain.CommandRequestTypeEnum;
+import cn.ken.master.core.enums.CommandRequestTypeEnum;
 
 import java.util.HashMap;
 import java.util.Map;

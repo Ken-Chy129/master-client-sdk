@@ -1,9 +1,9 @@
 package cn.ken.master.client.handle;
 
-import cn.ken.master.client.common.constant.RequestParameterKeyConstants;
-import cn.ken.master.client.common.domain.CommandRequest;
-import cn.ken.master.client.common.domain.Result;
-import cn.ken.master.client.common.domain.VariableChange;
+import cn.ken.master.core.model.CommandRequest;
+import cn.ken.master.core.model.Result;
+import cn.ken.master.core.constant.RequestParameterKeyConstants;
+import cn.ken.master.core.model.VariableChange;
 import cn.ken.master.client.core.MasterContainer;
 
 import java.lang.reflect.Field;
