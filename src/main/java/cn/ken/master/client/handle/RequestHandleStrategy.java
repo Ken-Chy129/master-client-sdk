@@ -1,7 +1,6 @@
 package cn.ken.master.client.handle;
 
-
-import cn.ken.master.core.model.CommandRequest;
+import cn.ken.master.core.model.Request;
 import cn.ken.master.core.model.Result;
 
 /**
@@ -12,5 +11,5 @@ import cn.ken.master.core.model.Result;
  */
 public interface RequestHandleStrategy {
 
-    Result<?> handleRequest(CommandRequest request);
+    Result<?> handleRequest(Request request);
 }

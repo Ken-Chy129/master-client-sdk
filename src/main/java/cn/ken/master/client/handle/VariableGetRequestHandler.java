@@ -1,7 +1,8 @@
 package cn.ken.master.client.handle;
 
 import cn.ken.master.client.annotations.ControllableVariable;
-import cn.ken.master.core.model.CommandRequest;
+import cn.ken.master.core.model.Request;
+import cn.ken.master.core.model.Request;
 import cn.ken.master.core.model.Result;
 import cn.ken.master.core.model.Variable;
 import cn.ken.master.core.constant.RequestParameterKeyConstants;
@@ -21,7 +22,7 @@ import java.util.Objects;
 public class VariableGetRequestHandler implements RequestHandleStrategy {
 
     @Override
-    public Result<?> handleRequest(CommandRequest commandRequest) {
+    public Result<?> handleRequest(Request commandRequest) {
         Map<String, String> parameterMap = commandRequest.getParameterMap();
         String namespace = parameterMap.get(RequestParameterKeyConstants.NAMESPACE);
         if (Objects.isNull(namespace)) {

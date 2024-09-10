@@ -1,6 +1,7 @@
 package cn.ken.master.client.handle;
 
-import cn.ken.master.core.model.CommandRequest;
+import cn.ken.master.core.model.Request;
+import cn.ken.master.core.model.Request;
 import cn.ken.master.core.model.Result;
 import cn.ken.master.core.constant.RequestParameterKeyConstants;
 import cn.ken.master.core.model.VariableChange;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class VariablePutRequestHandler implements RequestHandleStrategy {
 
     @Override
-    public Result<VariableChange> handleRequest(CommandRequest commandRequest) {
+    public Result<VariableChange> handleRequest(Request commandRequest) {
         Map<String, String> parameterMap = commandRequest.getParameterMap();
         String namespace = parameterMap.get(RequestParameterKeyConstants.NAMESPACE);
         String name = parameterMap.get(RequestParameterKeyConstants.VARIABLE_NAME);

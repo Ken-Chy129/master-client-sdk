@@ -2,7 +2,7 @@ package cn.ken.master.client.handle;
 
 import cn.ken.master.client.annotations.ControllableVariable;
 import cn.ken.master.client.core.MasterContainer;
-import cn.ken.master.core.model.CommandRequest;
+import cn.ken.master.core.model.Request;
 import cn.ken.master.core.model.Result;
 import cn.ken.master.core.model.Variable;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 public class VariableGetAllRequestHandler implements RequestHandleStrategy {
 
     @Override
-    public Result<List<Variable>> handleRequest(CommandRequest request) {
+    public Result<List<Variable>> handleRequest(Request request) {
         Map<String, Map<String, ControllableVariable>> masterVariableMap = MasterContainer.getAllControllableVariableMap();
         List<Variable> variableList = new ArrayList<>();
         for (var entry : masterVariableMap.entrySet()) {

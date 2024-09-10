@@ -1,7 +1,5 @@
 package cn.ken.master.client;
 
-import cn.ken.master.client.common.domain.CommandRequest;
-import cn.ken.master.client.util.MasterUtil;
 
 
 /**
